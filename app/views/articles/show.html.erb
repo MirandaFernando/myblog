@@ -2,6 +2,9 @@
 
 <h2> <%= @article.body %> </h2>
 <ul>
-    <li><%= link_to 'Voltar', root_path %></li>
-    <li><%= link_to 'edit', edit_article_path(@article) %></li>
+    <li><%= link_to 'Back', root_path %></li>
+    <li><%= link_to 'Destroy', article_path(@article),
+        method: :delete,
+        data: { confirm: 'Are you sure?' }%></li>
+    <li><%= link_to 'Edit', edit_article_path(@article) %></li>
 </ul>
