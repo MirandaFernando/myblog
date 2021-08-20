@@ -3,7 +3,7 @@ class ArticlesController < ApplicationController
   
   def index
     current_page = (params[:page] || 1).to_i
-    @articles = Article.page(current_page).per(2)
+    @articles = Article.order(created_at: :desc).page(current_page).per(2)
   end
   
   def show
