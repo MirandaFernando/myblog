@@ -11,7 +11,7 @@
             From my experience
         </h3>
         <p>
-            <%= link_to 'new Article', new_article_path, class: 'btn btn-primary' %>
+            <%= link_to 'new Article', new_article_path, class: 'btn btn-primary' if user_signed_in?%>
         </p>
 
         <%= render @articles %>
