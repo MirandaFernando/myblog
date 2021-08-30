@@ -4,16 +4,21 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: %i[show edit update destroy]
   
   def index
-    category = Category.find_by_name(params[:category]) if params[:category].present?
+    @categories = Category.sorted
+    category = @categories.select { |c| c.name == params[:category] }[0] if params[:category].present?
 
-    @highlights = Article.filter_by_category(category).desc_order.first(3)
+    @highlights = Article.includes([:category, :user])
+                          .filter_by_category(category)
+                          .desc_order
+                          .first(3)
     highlight_ids = @highlights.pluck(:id).join(',')
     
-    @articles = Article.desc_order
+    @articles = Article.includes([:category, :user])
+                       .desc_order
                        .filter_by_category(category)  
                        .without_highlights(highlight_ids)
                        .page(current_page)
-    @categories = Category.sorted
+
   end
   
   def show
