@@ -4,21 +4,24 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: %i[show edit update destroy]
   
   def index
+    @archives = Article.group_by_month(:created_at, format: '%B %Y', locale: :en).count
     @categories = Category.sorted
     category = @categories.select { |c| c.name == params[:category] }[0] if params[:category].present?
 
     @highlights = Article.includes([:category, :user])
                           .filter_by_category(category)
+                          .filter_by_archive(params[:month_year])
                           .desc_order
                           .first(3)
     highlight_ids = @highlights.pluck(:id).join(',')
     
     @articles = Article.includes([:category, :user])
                        .desc_order
-                       .filter_by_category(category)  
+                       .filter_by_category(category)
+                       .filter_by_archive(params[:month_year])  
                        .without_highlights(highlight_ids)
                        .page(current_page)
-
+  
   end
   
   def show
