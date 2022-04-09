@@ -23,7 +23,21 @@ Building a blog using Bootstrap 5 with Ruby on Rails 6 in MVC pattern.
   </tr>
 </table>
 
-### O projeto ainda está em desenvolvimento.
+## Services Used
+* Github
+* Heroku
+
+## Ruby Gems
+- devise
+- active_model_serializers
+- letter_opener
+- simple_form
+- kaminari
+- devise
+- pundit
+- rolify
+- groupdate
+
 
 ## Initial settings to run the project
 
